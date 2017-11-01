@@ -1,0 +1,63 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega16A"</DEVICE>
+ <WORKING_DIR>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m16adef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\Debug\SoftPWM_Sim.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>SoftPWM_Sim.map</FILE>
+  <FILE>SoftPWM_Sim.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <pwm_timing><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>20</LINE></pwm_timing>
+  <pwm_timing_start><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>21</LINE></pwm_timing_start>
+  <pwm_timing_end><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>23</LINE></pwm_timing_end>
+  <pwm_timing_tmp><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>25</LINE></pwm_timing_tmp>
+  <pwm_timing_tmp_start><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>26</LINE></pwm_timing_tmp_start>
+  <pwm_timing_tmp_end><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>28</LINE></pwm_timing_tmp_end>
+  <pwm_mask><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>30</LINE></pwm_mask>
+  <pwm_mask_start><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>31</LINE></pwm_mask_start>
+  <pwm_mask_end><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>33</LINE></pwm_mask_end>
+  <pwm_mask_tmp><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>35</LINE></pwm_mask_tmp>
+  <pwm_mask_tmp_start><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>36</LINE></pwm_mask_tmp_start>
+  <pwm_mask_tmp_end><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>38</LINE></pwm_mask_tmp_end>
+  <pwm_setting><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>40</LINE></pwm_setting>
+  <pwm_setting_start><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>41</LINE></pwm_setting_start>
+  <pwm_setting_end><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>43</LINE></pwm_setting_end>
+  <pwm_setting_tmp><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>45</LINE></pwm_setting_tmp>
+  <pwm_setting_tmp_start><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>46</LINE></pwm_setting_tmp_start>
+  <pwm_setting_tmp_end><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>48</LINE></pwm_setting_tmp_end>
+  <pwm_cnt_max><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>50</LINE></pwm_cnt_max>
+  <pwm_sync><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>51</LINE></pwm_sync>
+  <isr_ptr_time><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>52</LINE></isr_ptr_time>
+  <main_ptr_time><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>53</LINE></main_ptr_time>
+  <isr_ptr_mask><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>54</LINE></isr_ptr_mask>
+  <main_ptr_mask><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>55</LINE></main_ptr_mask>
+  <pwm_cnt><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>57</LINE></pwm_cnt>
+  <main><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>223</LINE></main>
+  <timer><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>112</LINE></timer>
+  <twi><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>109</LINE></twi>
+  <timerL2><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>176</LINE></timerL2>
+  <timerL1><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>213</LINE></timerL1>
+  <timerL4><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>207</LINE></timerL4>
+  <loop><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>287</LINE></loop>
+  <TIM16_ReadTCNT1><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>295</LINE></TIM16_ReadTCNT1>
+  <TIM16_WriteTCNT1><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>307</LINE></TIM16_WriteTCNT1>
+  <TIM16_ReadOCR1A><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>319</LINE></TIM16_ReadOCR1A>
+  <TIM16_WriteOCR1A><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>331</LINE></TIM16_WriteOCR1A>
+  <swap_pointer><FILE>C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm</FILE><LINE>343</LINE></swap_pointer>
+ </LABELS>
+</ASSEMBLER_INFO>

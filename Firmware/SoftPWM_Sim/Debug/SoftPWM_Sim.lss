@@ -1,0 +1,5 @@
+
+AVRASM ver. 2.2.7  C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm Mon Oct 30 08:12:10 2017
+
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m16adef.inc'
+C:\Users\sascha\Documents\Atmel Studio\7.0\ETIT-Projekt_uC_SoftPWMDriver\SoftPWM_Sim\main.asm(489): error: syntax error, unexpected $undefined
