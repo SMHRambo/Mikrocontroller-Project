@@ -1,0 +1,5 @@
+
+AVRASM ver. 2.2.7  C:\Users\sascha\Desktop\Uni Hausaufgaben\Mikrocontroller-Project\Firmware\SoftPWM_Target\main.asm Fri Jan 12 08:39:17 2018
+
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m16adef.inc'
+C:\Users\sascha\Desktop\Uni Hausaufgaben\Mikrocontroller-Project\Firmware\SoftPWM_Target\main.asm(197): error: syntax error, unexpected '('
