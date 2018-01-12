@@ -255,27 +255,16 @@ TW_INTERRUPT_END:
 TIMER_INTERRUPT:
 	in		r15,			SREG			; Einlesen des SREG 
 	cli										; Disable interrupts
-	push	r16
-	push	r17
-	push	r18								; r18 auf Stack sichern
-	push	r19								; r19 auf Stack sichern
-	push	r20
-	push	r21
-	push	r22
-	push	r23
-	push	r24
-	push	r25
-	push	r30								; r30 auf Stack sichern
-	push	r31								; r31 auf Stack sichern
 
-	lds		r24,			pwm_cnt			; Lade den Inhalt von von pwm_cnt.
-	lds		r25,			pwm_cnt+1
+	; check if you can reduce the number of used registers
+	lds		r16,			pwm_cnt			; Lade den Inhalt von von pwm_cnt.
+	lds		r17,			pwm_cnt+1
 
 	lds		r18,			isr_ptr_time	; Lade den Inhalt von isr_ptr_time,
 	lds		r19,			isr_ptr_time+1
 
-	mov		r20,			r24				;
-	mov		r21,			r25
+	mov		r20,			r16				;
+	mov		r21,			r17
 
 	lsl		r20								; Inhalt von pwm_cnt mal 2 multiplizieren,
 	rol		r21
@@ -301,81 +290,66 @@ TIMER_INTERRUPT:
 	lds		r18,			isr_ptr_mask	; Lade den Inhalt von isr_ptr_mask,
 	lds		r19,			isr_ptr_mask+1
 									
+	lsl		r20								; Inhalt von pwm_cnt mal 2 multiplizieren,
+	rol		r21
+
 	add		r18,			r20				;
 	adc		r19,			r21
 
 	mov		r30,			r18				; Kopiere die Adresse des jewiligen Elementes in die Register r30 und r31
 	mov		r31,			r19
 
-	ld		r16,			Z				;
-	ldd		r17,			Z+1
-	ldd		r18,			Z+2
-	ldd		r19				Z+3
+	ld		r18,			Z				;
+	ldd		r19,			Z+1
+	ldd		r20,			Z+2
+	ldd		r21				Z+3
 
-	cp		r24,			__zero_reg__
-	cpc		r25,			__zero_reg__
+	cp		r16,			__zero_reg__
+	cpc		r17,			__zero_reg__
+	brne	TIMER_1
+	out		PORTA,			r18
+	out		PORTB,			r19
+	out		PORTC,			r20
+	out		PORTD,			r21
+	rjmp	TIMER_2
+TIMER_1:
+	in		r22,			PORTA
+	and		r18,			r22
+	out		PORTA,			r18
+
+	in		r22,			PORTB
+	and		r19,			r22
+	out		PORTB,			r19
+
+	in		r22,			PORTC
+	and		r20,			r22
+	out		PORTC,			r20
+
+	in		r22,			PORTD
+	and		r21,			r22
+	out		PORTD,			r21
+
+	lds		r18,			pwm_cnt_max
+	lds		r19,			pwm_cnt_max+1
+	
+	cp		r16,			r18
+	cpc		r17,			r19
 	brne	TIMER_2
-	out		PORTA,			r16
-	out		PORTB,			r17
-	out		PORTC,			r18
-	out		PORTD,			r19
 
+	ldi		r24,			1
+	sts		pwm_sync,		r24
+
+	sts		pwm_cnt+1,		__zero_reg__
+	sts		pwm_cnt,		__zero_reg__
+	rjmp	TIMER_END
+
+TIMER_2:
+	mov		r24,			r16
+	mov		r25,			r17
 	adiw	r24,			1
 	sts		pwm_cnt,		r24	
 	sts		pwm_cnt+1,		r25
-	rjmp	TIMER_1
-TIMER_2:
-;TODO hier weitermachen
-	in		r20,			PORTA
-	in		r21,			PORTB
-	in		r22,			PORTC
-	in		r23,			PORTD
-	and
-	and
-	and
-	and
-	out		PORTA,			r16
-	out		PORTB,			r17
-	out		PORTC,			r18
-	out		PORTD,			r19
-TIMERL2:
-	ldd		r25,			Y+1
-	in		r24,			PORTA
-	and		r24,			r25
-	out		PORTA,			r24
-	ldd		r25,			Y+1
-	in		r24,			PORTB
-	and		r24,			r25
-	out		PORTB,			r24
-	ldd		r25,			Y+1
-	in		r24,			PORTC
-	and		r24,			r25
-	out		PORTC,			r24
-	ldd		r25,			Y+1
-	in		r24,			PORTD
-	and		r24,			r25
-	out		PORTD,			r24
-
-	lds		r24,			pwm_cnt_max
-	mov		r18,			r24
-	ldi		r19,			low(0)
-	lds		r24,			pwm_cnt
-	lds		r25,			pwm_cnt+1
-	cp		r18,			r24
-	cpc		r19,			r25
-	brne	timerL4
-	ldi		r24,			low(1)
-	sts		pwm_sync,		r24
-	sts		pwm_cnt+1,		r1
-	sts		pwm_cnt,		r1
-	rjmp	timerL1
-TIMERL4:
-	lds		r24,			pwm_cnt
-	lds		r25,			pwm_cnt+1
-	adiw	r24,			1
-	sts		pwm_cnt+1,		r25
-	sts		pwm_cnt,		r24
-TIMERL1:
+TIMER_END:
 	out SREG, r15
 	reti
 
@@ -422,7 +396,7 @@ MAIN:
 	sts		pwm_cnt_max,		r16						; Speicher den Inhalt von r16 bzw 1 in pwm_cnt_max
 
 	; TODO: Könnte in ein Unterprogramm ausgelagert werden
-	; TODO: Hier muss eigentlich nur die RIchtung eingestelt werden(Zeiterspanis)
+	; TODO: Hier muss eigentlich nur die Richtung eingestellt werden(Zeiterspanis)
 	; Ports einstellen
 	; Alle Pins als Ausgänge definieren
 	; Alle Pins auf HIGH stellen
@@ -497,60 +471,52 @@ TWI_ERROR:
  	rcall TWI_INI
 	ret
 
-; TODO: r15 als SREG einsetzten
-; TODO: r2 und r3 als Parameter register benutzen
 TIM16_ReadTCNT1:
 	; Save global interrupt flag
-	in r18, SREG
+	in r15, SREG
 	; Disable interrupts
 	cli
-	; Read TCNT1 into r17:r16
-	in r16, TCNT1L
-	in r17, TCNT1H
+	; Read TCNT1 into r2:r3
+	in r2, TCNT1L
+	in r3, TCNT1H
 	; Restore global interrupt flag
-	out SREG, r18
+	out SREG, r15
 	reti
 
-; TODO: r15 als SREG einsetzten
-; TODO: r2 und r3 als Parameter register benutzen
 TIM16_WriteTCNT1:
 	; Save global interrupt flag
-	in r18, SREG
+	in r15, SREG
 	; Disable interrupts
 	cli
-	; Set TCNT1 to r17:r16
-	out TCNT1H, r17
-	out TCNT1L, r16
+	; Set TCNT1 to r2:r3
+	out TCNT1H, r3
+	out TCNT1L, r2
 	; Restore global interrupt flag
-	out SREG, r18
+	out SREG, r15
 	reti
 
-; TODO: r15 als SREG einsetzten
-; TODO: r2 und r3 als Parameter register benutzen
 TIM16_ReadOCR1A:
 	; Save global interrupt flag
-	in r18, SREG
+	in r15, SREG
 	; Disable interrupts
 	cli
-	; Read TCNT1 into r17:r16
-	in r16, OCR1AL
-	in r17, OCR1AH
+	; Read TCNT1 into r2:r3
+	in r2, OCR1AL
+	in r3, OCR1AH
 	; Restore global interrupt flag
-	out SREG, r18
+	out SREG, r15
 	reti
 
-; TODO: r15 als SREG einsetzten
-; TODO: r2 und r3 als Parameter register benutzen
 TIM16_WriteOCR1A:
 	; Save global interrupt flag
-	in r18, SREG
+	in r15, SREG
 	; Disable interrupts
 	cli
-	; Set TCNT1 to r17:r16
-	out OCR1AH, r17
-	out OCR1AL, r16
+	; Set TCNT1 to r2:r3
+	out OCR1AH, r3
+	out OCR1AL, r2
 	; Restore global interrupt flag
-	out SREG, r18
+	out SREG, r15
 	reti
 
 SWAP_POINTER:
