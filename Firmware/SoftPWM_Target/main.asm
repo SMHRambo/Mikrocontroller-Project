@@ -545,9 +545,154 @@ SWAP_POINTER:
 	sts		isr_ptr_mask,		r19				; Speicher den Inhalt von r19 bzw main_prt_mask in isr_ptr_mask
 	ret
 
+
+UPDATE_PWM:
+
+	;Initialisieren von m1 mit 1;
+	ldi		r20,		lo8(1)
+	ldi		r21,		hi8(1)
+	ldi		r22,		hlo8(1)
+	ldi		r23,		hhi8(1)
+	sts		m1,			r20
+	sts		m1+1,		r21
+	sts		m1+2,		r22
+	sts		m1+3,		r23
+
+	; Initialsiieren m2 mit 0;
+	sts		m2,			__zero_reg__
+	sts		m2+1,		__zero_reg__
+	sts		m2+2,		__zero_reg__
+	sts		m2+3,		__zero_reg__
+
+	; for-Schleife
+    ldi		r16,		1						; Init r16 alias i mit 1
+UPDATE_PWM_1:
+	com		r20									; Invertieren von allen bits in r24:r27
+	com		r21
+	com		r22
+	com		r23
+	mov		r18,		r16						; Eine Kopie von r16 alias i in r18
+	ldi		r19,		0						; r19 mit 0 überschreiben
+	lsl		r18									; r18 2x shiften, um r18 mal 4 multiplizieren, wird benötigt um 32bit Index zu erzeugen.
+	lsl		r18									; r19 wird nicht benötigt, da r18 maximal 30*4 annimmt.
+	subi	r18,		lo8(-(main_ptr_mask))	; main_ptr_mask Adresse auf r18:r19 addieren
+	sbci	r19,		hi8(-(main_ptr_mask))
+	mov		r30,		r18						; kopiere r18:r19 in r30:r31 um über Z Pointer auf auf das i-te element von main_ptr_mask zuzugreifen
+	mov		r31,		r19						
+	st		Z,			r20						; Kopiere das invertiere m1 in das i-te element von main_ptr_mask
+	std		Z+1,		r21
+	std		Z+2,		r22
+	std		Z+3,		r23
+
+	mov		r18,		r16						; Eine Kopie von r16 alias i in r18
+	ldi		r19,		0						; r19 mit 0 überschreiben
+	subi	r18,		1						; Von r18 einen abziehen
+	lsl		r18									; r18 shiften, um r18 mal 2 multiplizieren, wird benötigt um 16bit Index zu erzeugen.
+	subi	r18,		lo8(-(pwm_setting))		; pwm_setting Adresse auf r18:r19 addieren
+	sbci	r19,		hi8(-(pwm_setting))
+	mov		r30,		r18						; kopiere r18:r19 in r30:r31 um über Z Pointer auf auf das i-te element von pwm_setting zuzugreifen
+	mov		r31,		r19
+	ld		r24,		Z						; Kopiere das i-te -1 Element von pwm_setting in r18:r19
+	ldd		r25,		Z+1
+	
+	lsl		r18,		r16						; Eine Kopie von r16 alias i in r18
+	ldi		r19,		0						; r19 mit 0 überschreiben
+	lsl		r18									; r18 shiften, um r18 mal 2 multiplizieren, wird benötigt um 16bit Index zu erzeugen.
+	subi	r18,		lo8(-(pwm_setting_tmp))	; pwm_setting_tmp Adresse auf r18:r19 addieren
+	sbci	r19,		hi8(-(pwm_setting_tmp))
+	mov		r30,		r18						; kopiere r18:r19 in r30:r31 um über Z Pointer auf auf das i-te element von pwm_setting_tmp zuzugreifen
+	mov		r31,		r19
+	std		Z+1,		r24						; Kopiere das i-te -1 Element von pwm_setting bzw r18:r19 in das i-te Element von pwm_setting_tmp
+	st		Z,			r25
+
+	sbiw	r24,		0
+	breq	PWM_UPDATE_2:
+	lds		r24,		m2
+	lds		r25,		m2+1
+	lds		r26,		m2+2
+	lds		r27,		m2+3
+	or		r24,		r20
+	or		r25,		r21
+	or		r26,		r22
+	or		r27,		r23
+	sts		m2,			r24
+	sts		m2+1,		r25
+	sts		m2+2,		r26
+	sts		m2+3,		r27
+
+PWM_UPDATE_2:
+	lsl		r20
+	rol		r21
+	rol		r22
+	rol		r23
+	sts		m1,			r20
+	sts		m1+1,		r21
+	sts		m1+2,		r22
+	sts		m1+3,		r23
+
+	inc		r16
+	cp		r16,		30
+	brle	UPDATE_PWM_1:
+
+	lds		r24,				m2
+	lds		r25,				m2+1
+	lds		r26,				m2+2
+	lds		r27,				m2+3
+	sts		main_ptr_mask,		r24
+	sts		main_ptr_mask+1,	r25
+	sts		main_ptr_mask+2,	r26
+	sts		main_ptr_mask+3,	r27
+
+	; for-Schleife
+    ldi		r16,		1						; Init r16 alias i mit 1
+UPDATE_PWM_3:
+	ldi		r20,		lo8(65534)
+	ldi		r21,		hi8(65534)
+	mov		r18,		r16
+	mov		r17,		r16
+UPDATE_PWM_4:
+	mov		r22,		r17
+	ldi		r23,		lo8(0)
+	lsl		r22
+	subi	r22,		lo8(-(pwm_setting_tmp))
+	sbci	r23,		hi8(-(pwm_setting_tmp))
+	mov		r30,		r22
+	mov		r31,		r23
+	ld		r22,		Z
+	ldd		r23,		Z+1
+	cp		r22,		r20
+	cpc		r23,		r21
+	brsh	UPDATE_PWM_5:
+	mov		r18,		r17
+	mov		r20,		r22
+	mov		r21,		r23
+UPDATE_PWM_5:
+	inc		r17
+	cp		r17,		30
+	brle	UPDATE_PWM_3:
+
+	cp		r17,	r18
+	breq	UPDATE_PWM_6:
+
+	;TODO: Hier den nächst niedrigen mit der aktuellen position austauschen
+	;tmp_set = pwm_setting_tmp[k];
+	;pwm_setting_tmp[k] = pwm_setting_tmp[i];
+	;pwm_setting_tmp[i] = tmp_set;
+	;tmp_mask = main_ptr_mask[k];
+	;main_ptr_mask[k] = main_ptr_mask[i];
+	;main_ptr_mask[i] = tmp_mask;
+
+	UPDATE_PWM_6:
+	inc		r16
+	cp		r16,		30
+	brle	UPDATE_PWM_3:
+
+
 ;TODO:	Hierbei handelt es sich um die wichigste funktion, hier wird die Bitmask für die PWM Pins geupdatet
 ;		Dies muss jeweils bei der änderung der PWM Werte gemacht werden
 ;		Der Code nimmt ca die hälfte des gesamten Projektes ein
+; UPDATE_PWM ist eine neuauflage von update, bei der auf compiler typische aktionen verzichtet wird, wie z.B.
+; Das ständige nachladen von variablen, oder nichtbenutzen von registern in denen schon das ergebnis steht, oder das auslagern von codeteilen die sich wiedrholen.
 update:
 	ldi		r24,			low(1)
 	ldi		r25,			BYTE2(1)
